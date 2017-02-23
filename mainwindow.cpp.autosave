@@ -142,7 +142,7 @@ void MainWindow:: ManageTableWidget()
 
 void MainWindow:: WriteData(int row,Data d)
 {
-    ui->tableWidget->setItem(row,1,QTableWidgetItem(d.address));
+    ui->tableWidget->setItem()
     ui->tableWidget->setItem(row,2,QTableWidgetItem(d.data));
     return;
 }
