@@ -114,19 +114,19 @@ public:
     }
     /*  ===== reset END ====== */
 
-    /** Á¬½ÓÉè±¸ **/
+    /** è¿æ¥è®¾å¤‡ **/
     bool conn_device()
     {
         char cmd = 0x80;
         int value = 0xaaaaaaaf;
         size_t time_cnt = clock();
         if(!sp.clear_iobuf()){
-            //MessageBox(NULL,TEXT("´®¿ÚÎ´Á¬½Ó"),TEXT("Warning"),0);
+            MessageBox(NULL,TEXT("ä¸²å£æœªè¿æ¥"),TEXT("Warning"),0);
             return conn_state = false;
         }
         sp<<cmd; sp>>value;
         if(clock()-time_cnt>950){
-           // MessageBox(NULL,TEXT("FPGAÎ´Á¬½Ó"),TEXT("Warning"),0);
+           MessageBox(NULL,TEXT("FPGAæœªè¿æ¥"),TEXT("Warning"),0);
             return conn_state = false;
         }
         if((value&0x00000003)==2)
@@ -137,7 +137,7 @@ public:
             if((value&0x00000003)==2)
                 return conn_state = true;
             else{
-               // MessageBox(NULL,TEXT("DDSÎ´Á¬½Ó"),TEXT("Warning"),0);
+                MessageBox(NULL,TEXT("DDSæœªè¿æ¥"),TEXT("Warning"),0);
                 return conn_state = false;
             }
         }
@@ -168,7 +168,7 @@ public:
     }
     /**  rw reg end **/
 
-    void update_hdreg() //¸üĞÂhdreg
+    void update_hdreg() //æ›´æ–°hdreg
     {
         sp.clear_iobuf();
         for(auto& i:hdreg)

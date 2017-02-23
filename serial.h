@@ -110,13 +110,13 @@ void SerialPort::get_coms(std::vector<std::string>& strSerialList)
 bool SerialPort::bind_com(std::string name)
 {
     isopen = true;
-    hComm = CreateFile( (const wchar_t*)(("\\\\.\\"+name).c_str()), //´®¿ÚºÅ
-                        GENERIC_READ | GENERIC_WRITE, //ÔÊĞí¶ÁĞ´
-                        0, //Í¨Ñ¶Éè±¸±ØĞëÒÔ¶ÀÕ¼·½Ê½´ò¿ª
-                        NULL, //ÎŞ°²È«ÊôĞÔ
-                        OPEN_EXISTING, //Í¨Ñ¶Éè±¸ÒÑ´æÔÚ
-                        0, //Í¬²½ I/O
-                        0); //Í¨Ñ¶Éè±¸²»ÄÜÓÃÄ£°å´ò¿ª
+    hComm = CreateFile( (const wchar_t*)(("\\\\.\\"+name).c_str()), //ä¸²å£å·
+                        GENERIC_READ | GENERIC_WRITE, //å…è®¸è¯»å†™
+                        0, //é€šè®¯è®¾å¤‡å¿…é¡»ä»¥ç‹¬å æ–¹å¼æ‰“å¼€
+                        NULL, //æ— å®‰å…¨å±æ€§
+                        OPEN_EXISTING, //é€šè®¯è®¾å¤‡å·²å­˜åœ¨
+                        0, //åŒæ­¥ I/O
+                        0); //é€šè®¯è®¾å¤‡ä¸èƒ½ç”¨æ¨¡æ¿æ‰“å¼€
     if (hComm == INVALID_HANDLE_VALUE){
         isopen = false;
         MessageBox(NULL,TEXT("Open Serial Port Failed!"),TEXT("Error"),0);
