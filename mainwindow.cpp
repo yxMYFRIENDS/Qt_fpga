@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "serial.h"
+
+
 
 
 //const QString rsrcPath = ":/images";
@@ -14,10 +17,16 @@ MainWindow::MainWindow(QWidget *parent) :
     CreateToolBars();
     ManageTableWidget();
     //测试WriteData
-    Data d(tr("0,0,0,0"),tr("192.168.1.1"));
+    Data d(tr("0,1,0,0"),tr("192.168.1.1"));
     WriteData(3,d);
+    Data d1(tr("0,1,1,0"),tr("192.168.1.1"));
+    WriteData(3,d1);
 
+    // 复选框环节
 
+    connect(ui->checkBox,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
+    connect(ui->checkBox_2,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
+    connect(ui->checkBox_3,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
 
 }
 
@@ -64,6 +73,7 @@ void MainWindow:: CreateActions()
     //第二个ToolBar
     clockLabel = new QLabel(tr("External Clock(MHz):"));
     clockLineEdit = new QLineEdit(tr("2500"));
+    clockLineEdit->setEnabled(false);
     multiplierLabel  = new QLabel(tr("Multiplier:"));
     multiplierLineEdit  = new QLineEdit(tr("50"));
     systemClockLabel = new QLabel(tr("System Clock (MHz):"));
@@ -142,7 +152,22 @@ void MainWindow:: ManageTableWidget()
 
 void MainWindow:: WriteData(int row,Data d)
 {
-    ui->tableWidget->setItem(row,1,QTableWidgetItem(d.address));
-    ui->tableWidget->setItem(row,2,QTableWidgetItem(d.data));
+    ui->tableWidget->setItem(row,1,new QTableWidgetItem(d.address));
+    ui->tableWidget->setItem(row,2,new QTableWidgetItem(d.data));
     return;
+}
+
+
+
+void MainWindow::on_sendDataBtn_clicked()
+{
+    QString str = ui->sendDataText->toPlainText();
+    ui->sendDataText->setText(tr("数据成功发送"));
+    qDebug()<<str<<endl;
+}
+
+//管理复选框的状态
+void MainWindow:: updateCheckBoxes()
+{
+    qDebug()<<"复选框能够使用"<<endl;
 }

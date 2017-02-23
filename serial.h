@@ -93,13 +93,13 @@ void SerialPort::get_coms(std::vector<std::string>& strSerialList)
     DWORD  dwSizeofPortName;
     DWORD Type;
     HKEY hKey;
-    LPCTSTR data_Set="HARDWARE\\DEVICEMAP\\SERIALCOMM\\";
+    LPCTSTR data_Set=(LPCTSTR)"HARDWARE\\DEVICEMAP\\SERIALCOMM\\";
     dwName = sizeof(Name);
     dwSizeofPortName = sizeof(szPortName);
     long ret0 = RegOpenKeyEx(HKEY_LOCAL_MACHINE, data_Set, 0, KEY_READ, &hKey);
     if(ret0 == ERROR_SUCCESS){
         do{
-            Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
+            Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type, szPortName, &(DWORD)dwSizeofPortName);
             if((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA)) strSerialList.push_back(LPCTSTR(szPortName));
             dwName = sizeof(Name);
             dwSizeofPortName = sizeof(szPortName);

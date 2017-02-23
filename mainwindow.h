@@ -11,6 +11,11 @@
 #include <QFont>
 #include <QTableWidgetItem>
 #include <QAbstractItemView>
+#include <QDebug>
+
+//状态文件作为一个操作
+//#include "curste.h"
+//#include "serial.h"
 
 struct Data
 {
@@ -37,11 +42,16 @@ public:
     //管理QTableWidget空间函数
     void ManageTableWidget();
     void WriteData(int row,Data d);
+    //处理复选框的状态
+    void updateCheckBoxes();
 
 
     ~MainWindow();
 public slots:
     void CloseAction();
+
+private slots:
+    void on_sendDataBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -62,6 +72,9 @@ private:
     QLineEdit* multiplierLineEdit;
     QLabel* systemClockLabel;
     QLabel* systemClockValLabel;
+
+
+
 
 
 
