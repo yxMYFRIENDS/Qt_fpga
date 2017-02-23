@@ -121,12 +121,12 @@ public:
         int value = 0xaaaaaaaf;
         size_t time_cnt = clock();
         if(!sp.clear_iobuf()){
-            MessageBox(NULL,TEXT("串口未连接"),TEXT("Warning"),0);
+            //MessageBox(NULL,TEXT("串口未连接"),TEXT("Warning"),0);
             return conn_state = false;
         }
         sp<<cmd; sp>>value;
         if(clock()-time_cnt>950){
-            MessageBox(NULL,TEXT("FPGA未连接"),TEXT("Warning"),0);
+           // MessageBox(NULL,TEXT("FPGA未连接"),TEXT("Warning"),0);
             return conn_state = false;
         }
         if((value&0x00000003)==2)
@@ -137,7 +137,7 @@ public:
             if((value&0x00000003)==2)
                 return conn_state = true;
             else{
-                MessageBox(NULL,TEXT("DDS未连接"),TEXT("Warning"),0);
+               // MessageBox(NULL,TEXT("DDS未连接"),TEXT("Warning"),0);
                 return conn_state = false;
             }
         }

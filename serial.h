@@ -93,14 +93,14 @@ void SerialPort::get_coms(std::vector<std::string>& strSerialList)
     DWORD  dwSizeofPortName;
     DWORD Type;
     HKEY hKey;
-    LPCTSTR data_Set="HARDWARE\\DEVICEMAP\\SERIALCOMM\\";
+    LPCTSTR data_Set=(LPCTSTR)"HARDWARE\\DEVICEMAP\\SERIALCOMM\\";
     dwName = sizeof(Name);
     dwSizeofPortName = sizeof(szPortName);
     long ret0 = RegOpenKeyEx(HKEY_LOCAL_MACHINE, data_Set, 0, KEY_READ, &hKey);
     if(ret0 == ERROR_SUCCESS){
         do{
-            Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
-            if((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA)) strSerialList.push_back(LPCTSTR(szPortName));
+            Status = RegEnumValue(hKey, dwIndex++, (LPWSTR)Name, &dwName, NULL, &Type, szPortName, &dwSizeofPortName);
+            if((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA)) strSerialList.push_back((char*)(szPortName));
             dwName = sizeof(Name);
             dwSizeofPortName = sizeof(szPortName);
         }while((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA));
@@ -110,7 +110,7 @@ void SerialPort::get_coms(std::vector<std::string>& strSerialList)
 bool SerialPort::bind_com(std::string name)
 {
     isopen = true;
-    hComm = CreateFile( ("\\\\.\\"+name).c_str(), //串口号
+    hComm = CreateFile( (const wchar_t*)(("\\\\.\\"+name).c_str()), //串口号
                         GENERIC_READ | GENERIC_WRITE, //允许读写
                         0, //通讯设备必须以独占方式打开
                         NULL, //无安全属性
@@ -119,7 +119,7 @@ bool SerialPort::bind_com(std::string name)
                         0); //通讯设备不能用模板打开
     if (hComm == INVALID_HANDLE_VALUE){
         isopen = false;
-        MessageBox(NULL,TEXT("串口不存在或被占用！"),TEXT("Error"),0);
+        MessageBox(NULL,TEXT("Open Serial Port Failed!"),TEXT("Error"),0);
     }else{
         DCB dcb;
         isopen &= GetCommState(hComm,&dcb);
