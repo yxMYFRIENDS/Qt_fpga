@@ -71,7 +71,7 @@ public:
 
 
     /*  ===== PS2-PS0 ====== */
-    void set_ps(int i)
+    void set_ps(int i)  //0-7
     {
         ps = (ps&0xf8) | (0x00000007 & i);
         sp<<ps;
