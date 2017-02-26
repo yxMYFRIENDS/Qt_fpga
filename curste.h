@@ -2,6 +2,7 @@
 #define CURSTE_H_INCLUDED
 #include<time.h>
 #include<iostream>
+#include<serial.h>
 struct Reg{
     unsigned char addr;
     unsigned int value;

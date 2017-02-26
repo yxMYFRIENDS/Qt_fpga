@@ -1,6 +1,6 @@
 #ifndef PROFIL_H_INCLUDED
 #define PROFIL_H_INCLUDED
-#include<curste.h>
+#include<base_set.h>
 #ifdef Debug
 #include<my.h>
 #endif // Debug

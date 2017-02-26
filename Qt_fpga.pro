@@ -17,6 +17,9 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     curste.h \
-    serial.h
+    serial.h \
+    base_set.h \
+    Profil.h \
+    Sweep.h
 
 FORMS    += mainwindow.ui

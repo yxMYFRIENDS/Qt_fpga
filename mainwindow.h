@@ -14,8 +14,8 @@
 #include <QDebug>
 
 //状态文件作为一个操作
-//#include "curste.h"
-//#include "serial.h"
+
+
 
 struct Data
 {

@@ -1,9 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "serial.h"
-#include "curste.h"
+#include "base_set.h"
+#include "Profil.h"
+#include "Sweep.h"
 
-
+BaseSet bs;    //界面1
+Sweep sweep(bs); //界面2
+Profil profil(bs);//界面3
+CurrentState& cs = bs.get_cur_state();//界面4
 
 //const QString rsrcPath = ":/images";
 const QString rsrcPath = "C:/Users//TT//Desktop//Qt_fpga//images";
@@ -12,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     CreateActions();
     CreateToolBars();
     ManageTableWidget();
@@ -162,8 +165,8 @@ void MainWindow:: WriteData(int row,Data d)
 void MainWindow::on_sendDataBtn_clicked()
 {
     QString str = ui->sendDataText->toPlainText();
-    ui->sendDataText->setText(tr("数据成功发送"));
     qDebug()<<str<<endl;
+    bs.get_serial()<<"Hello erfe";
 }
 
 //管理复选框的状态

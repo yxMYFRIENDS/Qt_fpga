@@ -3,7 +3,6 @@
 #include<curste.h>
 #include<vector>
 #include<string>
-#include<serial.h>
 #ifdef Debug
 #include<my.h>
 #endif // Debug
