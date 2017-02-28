@@ -85,12 +85,11 @@ void MainWindow:: CreateActions()
 }
 void MainWindow::CreateToolBars()
 {
-    debugToolBar = addToolBar(tr("文件"));
-    debugToolBar->addAction(newAct);
-    debugToolBar->addAction(loadAct);
-    debugToolBar->addAction(closeAct);
-    debugToolBar->addAction(flashAct);
-    debugToolBar->addAction(flash1Act);
+    ui->mainToolBar->addAction(newAct);
+    ui->mainToolBar->addAction(loadAct);
+    ui->mainToolBar->addAction(closeAct);
+    ui->mainToolBar->addAction(flashAct);
+    ui->mainToolBar->addAction(flash1Act);
 
     parameterToolBar = addToolBar(tr("参数"));
     parameterToolBar->addWidget(clockLabel);
