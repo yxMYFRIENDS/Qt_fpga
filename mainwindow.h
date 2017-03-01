@@ -14,7 +14,10 @@
 #include <QDebug>
 
 //状态文件作为一个操作
-
+#include "base_set.h"
+#include "Profil.h"
+#include "Sweep.h"
+#include "my.h"
 
 
 struct Data
@@ -45,6 +48,7 @@ public:
     //处理复选框的状态
     void updateCheckBoxes();
 
+    void ini_1();
 
     ~MainWindow();
 public slots:
@@ -52,6 +56,12 @@ public slots:
 
 private slots:
     void on_sendDataBtn_clicked();
+
+    void set_osk_1(bool);
+    void set_ext_osk_1(bool);
+    void set_ext_pin_osk_1(bool);
+    void refresh_com_list();
+
 
 private:
     Ui::MainWindow *ui;

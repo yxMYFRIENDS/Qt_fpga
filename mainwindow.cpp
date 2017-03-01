@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "base_set.h"
-#include "Profil.h"
-#include "Sweep.h"
 
 BaseSet bs;    //界面1
 Sweep sweep(bs); //界面2
@@ -30,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->checkBox,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
     connect(ui->checkBox_2,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
     connect(ui->checkBox_3,SIGNAL(clicked(bool)),this,SLOT(updateMicroFocus()));
+    ini_1();
 
 }
 
