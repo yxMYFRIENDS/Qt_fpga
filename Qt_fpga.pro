@@ -13,7 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    jiemian1.cpp \
+    serial.cpp \
+    curste.cpp \
+    base_set.cpp \
+    sweep.cpp \
+    profil.cpp
 
 HEADERS  += mainwindow.h \
     curste.h \
