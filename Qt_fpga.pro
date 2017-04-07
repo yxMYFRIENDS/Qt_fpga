@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     curste.cpp \
     base_set.cpp \
     sweep.cpp \
-    profil.cpp
+    profil.cpp \
+    jiemian2.cpp
 
 HEADERS  += mainwindow.h \
     curste.h \

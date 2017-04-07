@@ -51,6 +51,7 @@ public:
     SerialPort& operator<<(char* t)          {while(*t!= '\0') *this<<*t++; return *this;}
 
     bool bind_com(std::string name);
+    void close_com();
     static void get_coms(std::vector<std::string>& strSerialList);
 };
 #endif // SERIAL_H_INCLUDED

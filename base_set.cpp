@@ -15,6 +15,11 @@ bool BaseSet::open_com(std::string s)
 {
     return   sp.bind_com(s)&&cs.conn_device();
 }
+void BaseSet::close_com()
+{
+    sp.close_com();
+}
+
 void BaseSet::set_sys_freq(double freq)
 {
     sys_freq = freq;

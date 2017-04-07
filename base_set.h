@@ -10,11 +10,12 @@ class BaseSet{
     double sys_freq;
     int auto_io_update;
     CurrentState cs;
-    SerialPort sp;
 public:
+    SerialPort sp;
     std::vector<std::string> com_list();
     void rest();
     bool open_com(std::string s);
+    void close_com();
     void set_sys_freq(double freq);
     void set_auto_ioupdate(int i);
     void set_osk_enable(int i);

@@ -1,5 +1,4 @@
 #include "Sweep.h"
-
 Sweep::Sweep(BaseSet& bs):cs(bs.get_cur_state()),sys_freq(bs.get_sys_freq()),auto_io_update(bs.get_auto_ioupdate())
 {
     cf2 = cs.read_reg(0x01);
@@ -92,11 +91,12 @@ void Sweep::change_value(int id,double value)
     {
         case 0:
             if(id==4)
-                rmap[4]->value = (rmap[4]->value&0x0000ffff)|(0xffff0000&((unsigned int)(1.0*value*sys_freq/24))<<16);
+                rmap[4]->value = (rmap[4]->value&0xffff0000)|(0x0000ffff&((unsigned int)(1.0*value*sys_freq/24)));
             else if(id==5)
-                rmap[5]->value = (rmap[5]->value&0xffff0000)|(0x0000ffff&((unsigned int)(1.0*value*sys_freq/24)));
+                rmap[5]->value = (rmap[5]->value&0x0000ffff)|(0xffff0000&((unsigned int)(1.0*value*sys_freq/24))<<16);
             else
                 rmap[id]->value = (unsigned int)(1.0*(1<<12)/sys_freq*(1<<20)*value);
+            cs.write_reg(*(rmap[id]));
             break;
         case 1:
 

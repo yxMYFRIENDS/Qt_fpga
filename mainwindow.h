@@ -12,6 +12,7 @@
 #include <QTableWidgetItem>
 #include <QAbstractItemView>
 #include <QDebug>
+#include <QString>
 
 //状态文件作为一个操作
 #include "base_set.h"
@@ -49,18 +50,46 @@ public:
     void updateCheckBoxes();
 
     void ini_1();
+    void refresh_1();
+    void ini_2();
+    void refresh_2();
 
     ~MainWindow();
 public slots:
     void CloseAction();
 
 private slots:
-    void on_sendDataBtn_clicked();
-
+    /** jiemian1 **/
     void set_osk_1(bool);
     void set_ext_osk_1(bool);
     void set_ext_pin_osk_1(bool);
-    void refresh_com_list();
+    void refresh_com_list_1();
+    void open_com_1();
+    void reset_1();
+    void cal_DAC_1();
+    void cal_PLL_1();
+    void auto_io_update_1(bool);
+    void io_update_1();
+    void change_sys_freq_1(QString);
+    void change_multiplier_1(QString);
+
+    /** jiemian2 **/
+    void set_io_update(bool);
+    void set_enable_sweep(bool);
+    void set_enable_frequency_jump(bool);
+    void set_drctl(bool);
+    void set_auto_drctl(bool);
+    void set_Dwell_High(bool);
+    void set_Dwell_Low(bool);
+    void change_value_0(QString);
+    void change_value_1(QString);
+    void change_value_2(QString);
+    void change_value_3(QString);
+    void change_value_4(QString);
+    void change_value_5(QString);
+    void change_value_6(QString);
+    void change_value_7(QString);
+
 
 
 private:
@@ -74,7 +103,6 @@ private:
     QAction* loadAct;
     QAction* closeAct;
     QAction* flashAct;
-    QAction* flash1Act;
     //工具栏按钮
     QLabel* clockLabel;
     QLineEdit* clockLineEdit;

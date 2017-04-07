@@ -123,3 +123,7 @@ bool SerialPort::bind_com(std::string name)
     if(!isopen) CloseHandle(hComm);
     return isopen;
 }
+void SerialPort::close_com()
+{
+    if(hComm) CloseHandle(hComm);
+}
