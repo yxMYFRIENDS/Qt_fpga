@@ -92,6 +92,8 @@ private slots:
 
 
 
+    void on_set_io_update_clicked();
+
 private:
     Ui::MainWindow *ui;
 

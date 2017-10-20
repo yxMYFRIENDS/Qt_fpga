@@ -1,5 +1,5 @@
 #include <serial.h>
-#include <my.h>
+
 DWORD WINAPI _asyn_thread(LPVOID pParam)
 {
     auto Param = *(std::tuple<HANDLE,LPVOID,DWORD,bool,std::function<void(void)> >*)pParam;
@@ -28,7 +28,7 @@ void SerialPort::_syn_build(LPVOID st,DWORD rw_num,bool rw)
     if(rw) ReadFile(hComm,st,rw_num,&tmp,NULL);
     else WriteFile(hComm,st,rw_num,&tmp,NULL);
 }
-std::string TCHAR2STRING(TCHAR* STR)
+std::string LPCTSTRTostring(TCHAR* STR)
 {
 #ifdef UNICODE
     int iLen = WideCharToMultiByte(CP_ACP, 0,STR, -1, NULL, 0, NULL, NULL);
@@ -40,9 +40,21 @@ std::string TCHAR2STRING(TCHAR* STR)
 #endif
     return str;
 }
+LPCTSTR stringToLPCTSTR(std::string orig,TCHAR* STR)
+{
+#ifdef UNICODE
+    size_t origsize = orig.length() + 1;
+    size_t convertedChars = 0;
+    mbstowcs_s(&convertedChars, STR, origsize, orig.c_str(), _TRUNCATE);
+    return STR;
+#else
+    strcpy(STR,orig.c_str());
+    return STR;
+#endif
+}
 void SerialPort::get_coms(std::vector<std::string>& strSerialList)
 {
-    char Name[25];
+    TCHAR Name[25];
     TCHAR szPortName[25];
     int Status;
     std::vector<std::string>().swap(strSerialList);
@@ -57,26 +69,19 @@ void SerialPort::get_coms(std::vector<std::string>& strSerialList)
     long ret0 = RegOpenKeyEx(HKEY_LOCAL_MACHINE, data_Set, 0, KEY_READ, &hKey);
     if(ret0 == ERROR_SUCCESS){
         do{
-            Status = RegEnumValue(hKey, dwIndex++, (LPWSTR)Name, &dwName, NULL, &Type,  (PUCHAR)szPortName, &dwSizeofPortName);
-            if((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA)) strSerialList.push_back(TCHAR2STRING(szPortName));
+            Status = RegEnumValue(hKey, dwIndex++, Name, &dwName, NULL, &Type,  (PUCHAR)szPortName, &dwSizeofPortName);
+            if((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA)) strSerialList.push_back(LPCTSTRTostring(szPortName));
             dwName = sizeof(Name);
             dwSizeofPortName = sizeof(szPortName);
         }while((Status == ERROR_SUCCESS)||(Status == ERROR_MORE_DATA));
         RegCloseKey(hKey);
     }
 }
-LPCWSTR stringToLPCWSTR(std::string orig,wchar_t* wcstring)
-{
-    size_t origsize = orig.length() + 1;
-    size_t convertedChars = 0;
-    mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
-    return wcstring;
-}
 bool SerialPort::bind_com(std::string name)
 {
     isopen = true;
-    wchar_t wcstring[30];
-    hComm = CreateFile( stringToLPCWSTR(("\\\\.\\"+name),wcstring), //串口号
+    TCHAR tcstring[30];
+    hComm = CreateFile( stringToLPCTSTR(("\\\\.\\"+name),tcstring), //串口号
                         GENERIC_READ | GENERIC_WRITE, //允许读写
                         0, //通讯设备必须以独占方式打开
                         NULL, //无安全属性
@@ -89,7 +94,7 @@ bool SerialPort::bind_com(std::string name)
     }else{
         DCB dcb;
         isopen &= GetCommState(hComm,&dcb);
-        dcb.BaudRate = 128000;
+        dcb.BaudRate = 115200;
         dcb.Parity = NOPARITY;
         dcb.fParity = 0;
         dcb.StopBits = ONESTOPBIT;

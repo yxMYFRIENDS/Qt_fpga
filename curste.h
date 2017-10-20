@@ -36,7 +36,7 @@ public:
     void set_auto_drctl(unsigned char i);
     int get_auto_drctl();
 
-    void reset();        /** = reset ==*/
+    void reset();        /** 复位dds **/
     bool conn_device();  /** 连接设备 **/
 
     /** rw reg **/

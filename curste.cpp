@@ -23,8 +23,8 @@ SerialPort& operator<<(SerialPort& sp,const Reg& reg)
 /*  =====oedi====== */
 void CurrentState::io_update()
 {
-    sp<<(unsigned char)(oedi|0x01)<<oedi;
     oedi &= 0xfe;
+    sp<<oedi<<(unsigned char)(oedi|0x01)<<oedi;
 }
 void CurrentState::set_drhold(unsigned char i)
 {

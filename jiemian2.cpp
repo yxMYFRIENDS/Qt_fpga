@@ -7,6 +7,7 @@ extern CurrentState cs;
 
 
 void MainWindow::set_io_update(bool b){
+    cout<<"11"<<endl;
     cs.io_update();
 }
 
